@@ -1,9 +1,6 @@
 package com.company;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,6 +29,12 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        BufferedReader bufr = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            bufr.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ArrayList<Thread> threadPull = new ArrayList<>();
         Path path = Paths.get("txt");
         File[] files = path.toFile().listFiles();
@@ -88,5 +91,10 @@ public class Main {
             }
         }));
         control.start();
+        try {
+            bufr.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

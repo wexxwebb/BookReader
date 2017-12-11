@@ -1,5 +1,5 @@
 .idea/
 out/
 *.iml
-test.java
+Test.java
 counts.txt
