@@ -1,0 +1,5 @@
+.idea/
+out/
+*.iml
+src/com/company/Test.java
+counts.txt
