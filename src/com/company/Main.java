@@ -16,17 +16,7 @@ public class Main {
 
     static int counter = 0;
 
-    static synchronized void checkCount() {
-        counter++;
-        if (counter % 5 == 0) {
-            try {
-                bWriter.write(counter + " - Thread : " + Thread.currentThread().getName() + "\n");
-                bWriter.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
 
     public static void main(String[] args) {
         BufferedReader bufr = new BufferedReader(new InputStreamReader(System.in));
@@ -47,18 +37,7 @@ public class Main {
             threadPull.add(new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    try {
-                        List<String> lines = Files.readAllLines(Paths.get(file.getAbsolutePath()), StandardCharsets.UTF_8);
-                        Pattern pattern = Pattern.compile("страдание");
-                        for (String s : lines) {
-                            Matcher matcher = pattern.matcher(s);
-                            while (matcher.find()) {
-                                checkCount();
-                            }
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
                 }
             }));
         }
