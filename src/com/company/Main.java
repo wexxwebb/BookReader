@@ -30,11 +30,11 @@ public class Main {
 
     public static void main(String[] args) {
         BufferedReader bufr = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            bufr.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            bufr.readLine();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         ArrayList<Thread> threadPull = new ArrayList<>();
         Path path = Paths.get("txt");
         File[] files = path.toFile().listFiles();
@@ -50,6 +50,13 @@ public class Main {
                     try {
                         List<String> lines = Files.readAllLines(Paths.get(file.getAbsolutePath()), StandardCharsets.UTF_8);
                         Pattern pattern = Pattern.compile("страдание");
+                        for (String s : lines) {
+                            Matcher matcher = pattern.matcher(s);
+                            while (matcher.find()) {
+                                checkCount();
+                            }
+                        }
+                        pattern = Pattern.compile("Страдание");
                         for (String s : lines) {
                             Matcher matcher = pattern.matcher(s);
                             while (matcher.find()) {
@@ -91,10 +98,10 @@ public class Main {
             }
         }));
         control.start();
-        try {
-            bufr.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            bufr.readLine();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }
