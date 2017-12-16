@@ -47,6 +47,7 @@ public class Main {
             threadPull.add(new Thread(new Runnable() {
                 @Override
                 public void run() {
+
                     try {
                         List<String> lines = Files.readAllLines(Paths.get(file.getAbsolutePath()), StandardCharsets.UTF_8);
                         Pattern pattern = Pattern.compile("страдание");
@@ -66,6 +67,7 @@ public class Main {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                 }
             }));
         }
