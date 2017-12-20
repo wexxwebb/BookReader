@@ -48,7 +48,11 @@ public class FileReader implements Callable<Result> {
                 }
                 break;
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Can't open file " + path.getFileName() + ". Retry " + i);
+            }
+            if (i == 5) {
+                System.out.println("Can't open file " + path.getFileName() + ", exit");
+                return null;
             }
         }
         return new Result(path.getFileName().toString(), countLocal);
