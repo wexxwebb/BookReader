@@ -23,7 +23,7 @@ public class Start {
         Lock lock = new ReentrantLock();
 
         try (BufferedWriter bos = new BufferedWriter(new FileWriter("counts.txt"));
-                BufferedWriter countsWritre = new BufferedWriter(new FileWriter("howMany.txt"))) {
+                BufferedWriter countsWrite = new BufferedWriter(new FileWriter("howMany.txt"))) {
             ExecutorService execService = Executors.newFixedThreadPool(files.size());
             List<Future<Result>> futures = new ArrayList<>();
             for (int i = 0; i < files.size(); i++) {
@@ -33,24 +33,23 @@ public class Start {
             while (true) {
                 List<Future<Result>> tempFutures = new ArrayList<>();
                 tempFutures.addAll(0, futures);
-
                 for (Future<Result> future : tempFutures) {
                     if (future.isDone()) {
                         try {
-                            //System.out.println(future.get().getFileName() + " >>> " + future.get().getCount());
-                            countsWritre.write(future.get().getFileName() + " >>> " + future.get().getCount() + "\n");
+                            countsWrite.write(future.get().getFileName() + " >>> " + future.get().getCount() + "\n");
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            System.out.println("Thread interrupted");
+                            futures.remove(future);
                         } catch (ExecutionException e) {
-                            e.printStackTrace();
+                            System.out.println("Thread execution error");
+                            futures.remove(future);
                         }
-
                         futures.remove(future);
                     }
                 }
                 if (futures.size() == 0) {
                     execService.shutdown();
-                    countsWritre.flush();
+                    countsWrite.flush();
                     String total = "Всего страданий: " + counter.get();
                     bos.write(total);
                     bos.flush();
@@ -59,9 +58,8 @@ public class Start {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Can't open or read/write files");
+            return;
         }
-
-
     }
 }
