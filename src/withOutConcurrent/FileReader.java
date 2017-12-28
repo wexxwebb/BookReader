@@ -1,6 +1,5 @@
 package withOutConcurrent;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,16 +35,19 @@ public class FileReader implements Runnable {
 
     @Override
     public void run() {
-        String allFile = new String();
-        for (int i = 1; i <= 3 ; i++) {
+        String allFile;
+        int retry = 0;
+        while (true) {
             try {
                 allFile = new String(Files.readAllBytes(path));
                 break;
             } catch (IOException e) {
-                System.out.println("Can't read file " + path.getFileName() + ". Retry " + i);
-                if (i == 3) {
+                retry++;
+                if (retry == 3) {
                     System.out.println("Can't read file " + path.getFileName() + ". Exit.");
                     return;
+                } else {
+                    System.out.println("Can't read file " + path.getFileName() + ". Retry " + retry);
                 }
             }
         }

@@ -8,7 +8,7 @@ import java.util.List;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 
-public class FileFounder implements ResourcesFounder {
+public class FileFounder implements Founder {
 
     private Path path;
     private String extension;

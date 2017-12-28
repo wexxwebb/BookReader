@@ -2,7 +2,7 @@ package withOutConcurrent;
 
 import java.util.List;
 
-public interface ResourcesFounder {
+public interface Founder {
 
     List<String> getResourcesList();
 

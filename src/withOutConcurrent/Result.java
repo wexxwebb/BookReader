@@ -16,4 +16,9 @@ public class Result {
     public int getCount() {
         return count;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(count) + " :: " + fileName;
+    }
 }
